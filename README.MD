@@ -24,9 +24,6 @@ _Run the below command in the same folder where you place 'DATASET_sample'. This
     python dnm_to_image.py
     python image_SR.py
 
-<img src="">  
-<img src="">
-
 Then we labeled the image dataset according to the user name, and if the user name was the same, it was regarded as the same vendor. For vendors that have more than 30 photos, we split their photos into two even parts. We add the first part to the training dataset and the second part to testing dataset. Also, for the other vendors, we add them to the training dataset.  
 _Run the below command in the same folder. This will create an 'user_collection' folder and 'user_collection_sr' folder._
 
