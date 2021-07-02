@@ -32,7 +32,7 @@ _Run the below command in the same folder. This will create an 'user_collection'
 
 # 4. MACHINE LEARNING
 We tested the original dataset and Super-Resolution dataset using the RESNET18 model respectively, and saved the results in the 'runs' folder. We checked the results of the two cases with TensorBoard.
-_Run the below command in the same folder. This will create an 'runs' folder that has results of civil detection._
+_Run the below command in the same folder. This will create an 'runs' folder that has results of Sybil detection._
 
     python Resnet18.py
     python Resnet18_SR.py
