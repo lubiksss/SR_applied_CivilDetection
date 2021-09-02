@@ -47,3 +47,8 @@ If tensorboard doesn't work, try this
 The results were different from our expectations. We expected that the sybil detection results would be improved when training with the data set that Super-Resolution tool was applied, but the results of the two datasets were the same. To compare the results of the two experiments, accuracy and loss were used as comparative features. The analysis results are as follows.
 * As a result of applying the Super-Resolution tool, the resolution of the image area was improved, but the text area was rather bad. We believe that resolution-enhancing trade-offs resulted in the same accuracy and loss.
 * _So, we are planning an experiment to check the difference in Super-Resolution application between the image area and the text area._
+
+## performance
+![result](./image/performance.JPG)
+## result
+![result](./image/result.JPG)
