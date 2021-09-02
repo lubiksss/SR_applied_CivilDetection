@@ -49,6 +49,8 @@ The results were different from our expectations. We expected that the sybil det
 * _So, we are planning an experiment to check the difference in Super-Resolution application between the image area and the text area._
 
 ## performance
-![result](./image/performance.JPG)
+![performance](./image/performance.JPG)
 ## result
 ![result](./image/result.JPG)
+* blue      without SR
+* orange    with SR
