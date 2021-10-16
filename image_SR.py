@@ -9,11 +9,12 @@ from tqdm import tqdm
 
 SAVE_PATH = './image_collection_sr/'
 
+
 def super_resolution(image_file_root):
 
     weights_file = 'srcnn_x2.pth'
     image_file = image_file_root
-    scale = 4
+    # scale = 4
 
     cudnn.benchmark = True
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -40,15 +41,18 @@ def super_resolution(image_file_root):
     with torch.no_grad():
         preds = model(y).clamp(0.0, 1.0)
 
-    psnr = calc_psnr(y, preds)
+    # psnr = calc_psnr(y, preds)
     preds = preds.mul(255.0).cpu().numpy().squeeze(0).squeeze(0)
-    output = np.array([preds, ycbcr[..., 1], ycbcr[..., 2]]).transpose([1, 2, 0])
+    output = np.array([preds, ycbcr[..., 1], ycbcr[..., 2]]
+                      ).transpose([1, 2, 0])
     output = np.clip(convert_ycbcr_to_rgb(output), 0.0, 255.0).astype(np.uint8)
     output = pil_image.fromarray(output)
     name = os.path.splitext(image_file)[-2].split('/')[-1]
     output.save(SAVE_PATH+name+'.jpg')
 
-## Function to search all subdirectories
+# Function to search all subdirectories
+
+
 def dir_image_processing(dirname):
     filenames = os.listdir(dirname)
     for filename in tqdm(filenames):
@@ -59,7 +63,7 @@ def dir_image_processing(dirname):
 
 
 if __name__ == '__main__':
-    if not os.path.isdir(SAVE_PATH):                                                           
+    if not os.path.isdir(SAVE_PATH):
         os.mkdir(SAVE_PATH)
 
     dir_image_processing('./image_collection/')

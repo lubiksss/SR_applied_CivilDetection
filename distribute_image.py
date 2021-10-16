@@ -8,15 +8,17 @@ LOAD_PATH = './image_collection/'
 USER_PATH = './DATASET_sample/'
 user_image_dict = {}
 
-## Distributed only when there are at least 15 images for train and 15 images for test.
+# Distributed only when there are at least 15 images for train and 15 images for test.
 THRESHOLD = 2*15
 
-## Function to search all subdirectories
+# Function to search all subdirectories
+
+
 def dir_user_processing(dirname):
     filenames = os.listdir(dirname)
     for filename in tqdm(filenames):
         full_filename = os.path.join(dirname, filename)
-        ## because we need item page in directory others are feedback page
+        # because we need item page in directory others are feedback page
         if os.path.isdir(full_filename):
             username = os.path.split(filename)[-1]
             item_list = os.listdir(full_filename)
@@ -24,7 +26,9 @@ def dir_user_processing(dirname):
                 full_itemname = os.path.join(full_filename, item)
                 user_image_collecting(username, full_itemname)
 
-## Function to collect user's image number
+# Function to collect user's image number
+
+
 def user_image_collecting(username, dirname):
     global user_image_dict
     with open(dirname, 'r', encoding='UTF-8') as f:
@@ -40,14 +44,16 @@ def user_image_collecting(username, dirname):
                 else:
                     user_image_dict[username] = set([image_number])
 
-## Function to distribute image to train set and test set
-## If user's image count is bigger than 2*Tr
+# Function to distribute image to train set and test set
+# If user's image count is bigger than 2*Tr
+
+
 def image_distribution(dict):
-    ## Make train user folder
+    # Make train user folder
     for username in user_image_dict:
         os.makedirs(SAVE_PATH+'train/'+username)
 
-    ## Make test folder
+    # Make test folder
     for username in user_image_dict:
         os.makedirs(SAVE_PATH+'test/'+username)
 
@@ -64,27 +70,27 @@ def image_distribution(dict):
                 if image == existing_image.replace('.jpg', '').split('_')[0]:
                     real_cnt += 1
 
-        ## test case
+        # test case
         if real_cnt >= THRESHOLD:
             for image in user_image_dict[username]:
                 existing_imagenames = os.listdir(LOAD_PATH)
                 for existing_image in existing_imagenames:
                     if image == existing_image.replace('.jpg', '').split('_')[0]:
-                        ## half of image is used for test
+                        # half of image is used for test
                         if half_cnt % 2 == 0:
                             copy_image = Image.open(LOAD_PATH+existing_image)
                             copy_image.save(SAVE_PATH+'test/' +
                                             username+'/'+existing_image)
                             test_cnt += 1
                             half_cnt += 1
-                        ## half of image is used for train
+                        # half of image is used for train
                         else:
                             copy_image = Image.open(LOAD_PATH+existing_image)
                             copy_image.save(
                                 SAVE_PATH+'train/'+username+'/'+existing_image)
                             train_cnt += 1
                             half_cnt += 1
-        ## train case
+        # train case
         else:
             for image in user_image_dict[username]:
                 existing_imagenames = os.listdir(LOAD_PATH)
@@ -102,8 +108,9 @@ def image_distribution(dict):
     summary.write(f'test_image_cnt : {test_cnt}\n')
     summary.close()
 
+
 if __name__ == '__main__':
-    if not os.path.isdir(SAVE_PATH):                                                           
+    if not os.path.isdir(SAVE_PATH):
         os.mkdir(SAVE_PATH)
 
     filename = USER_PATH+'2014-11-01/users'
