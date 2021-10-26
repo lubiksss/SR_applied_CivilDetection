@@ -16,6 +16,7 @@ def super_resolution(image_file_root):
     image_file = image_file_root
     # scale = 4
 
+    # input의 크기와 사용중인 hardware에 따라 cudnn에서 사용하는 알고리즘을 바꿔준다.
     cudnn.benchmark = True
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     model = SRCNN().to(device)

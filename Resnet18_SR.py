@@ -156,6 +156,7 @@ if __name__ == '__main__':
     model_ft = models.resnet18(pretrained=True)
 
     # Size of last FC layer is len(class)
+    # 마지막 레이어가 문제에 최적화 되어있지 않기 때문에 마지막 레이어를 교체합니다.
     num_ftrs = model_ft.fc.in_features
     model_ft.fc = nn.Linear(num_ftrs, class_len)
 
